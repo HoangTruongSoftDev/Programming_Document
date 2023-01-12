@@ -1,0 +1,52 @@
+Set serveroutput on;
+CREATE OR REPLACE PACKAGE truong_package IS
+	global_num1 NUMBER;
+	global_num2 NUMBER;
+	PROCEDURE sum_num(p_num1 NUMBER, p_num2 NUMBER);
+END;
+/
+CREATE OR REPLACE PACKAGE BODY truong_package IS
+	PROCEDURE sum_num(p_num1 NUMBER, p_num2 NUMBER) AS
+	v_sum NUMBER := p_num1 + p_num2;
+BEGIN
+	 DBMS_OUTPUT.PUT_LINE('The sum of ' || p_num1 || ' and ' || p_num2 || ' is: ' || v_sum);
+END sum_num;
+END;
+/
+
+exec truong_package.sum_num(1,2);
+
+
+
+CREATE OR REPLACE PROCEDURE Truong_p1 AS 
+BEGIN
+	truong_package.global_num1 := 100;
+	truong_package.sum_num(3,4);
+END;
+/
+exec Truong_p1
+
+
+BEGIN
+	DBMS_OUTPUT.PUT_LINE('Global num1: ' || truong_package.global_num1);
+	truong_package.sum_num(2,3);
+END;
+/
+
+
+--
+CREATE OR REPLACE PACKAGE truong_package_1 IS
+      global_num1 NUMBER(6);
+      global_num2 NUMBER(6);
+END;
+/
+
+BEGIN
+	truong_package_1.global_num1 := 100;
+	truong_package_1.global_num2 := 200;
+	DBMS_OUTPUT.PUT_LINE('Number 1: ' || truong_package_1.global_num1 || '. Number 2: ' || truong_package_1.global_num2);
+END;
+/
+
+
+
